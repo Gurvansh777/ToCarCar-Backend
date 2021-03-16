@@ -9,6 +9,7 @@ def add_user(first_name, last_name, email, password):
     if db.users.find({'email': email}).count() == 0:
         user = {'firstName' : first_name, 'lastName' : last_name, 'email' : email, 'password' : password}
         db.users.insert_one(user)
+        
         return jsonify(useradded = 1, email = email, message = 'user added!')
     else:
         return jsonify(useradded = 0, email = email, message = 'user already exist!')
@@ -16,6 +17,8 @@ def add_user(first_name, last_name, email, password):
 
 def check_credentials(email, password):
     if db.users.find({'email' : email, 'password' : password}).count() > 0:
-        return jsonify(uservalid = 1, message = 'user is valid!')
+        user = db.users.find_one({'email' : email, 'password' : password})
+        
+        return jsonify(uservalid = 1, message = 'user is valid!', firstName = user['firstName'], lastName = user['lastName'])
     else:
-        return jsonify(usevalid = 0, message = 'user is invalid!')
+        return jsonify(uservalid = 0, message = 'user is invalid!')

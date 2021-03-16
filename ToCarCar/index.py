@@ -17,7 +17,7 @@ def main():
         email = request.form.get('email', 'Default')
         password = request.form.get('password', 'Default')
         
-        return add_user(first_name, last_name, email, password)
+        return add_user(first_name, last_name, email, password) #in user_management.py
     else:
         return render_template('index.html')
 
@@ -28,7 +28,7 @@ def check_user():
         email = request.form.get('email', 'Default')
         password = request.form.get('password', 'Default')
         
-        return check_credentials(email, password)
+        return check_credentials(email, password) #in user_management.py
     else:
         return render_template('index.html')
         
