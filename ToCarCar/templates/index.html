@@ -5,6 +5,18 @@
   <body>
     <div>
         <h1>Home Page ToCarCar</h1>
+        <form method="POST">
+            {{ lform.hidden_tag() }}
+            <fieldset>
+                <legend>Login</legend>
+                {{ lform.email.label }}<br>
+                {{ lform.email }}<br>
+                {{ lform.password.label }}<br>
+                {{ lform.password }}<br><br>
+                {{ lform.login }}
+                <a href="{{url_for('user_bp.new_user')}}">New User?</a>
+            </fieldset>
+        </form>
     </div>
   </body>
 </html>

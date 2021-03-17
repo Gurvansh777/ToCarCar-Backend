@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>User Registration</title>
+  </head>
+  <body>
+    <div>
+        <h1>Registration</h1>
+        <form method="POST">
+          {{ rform.hidden_tag() }}
+          <fieldset>
+            <legend>Login</legend>
+                  {{ rform.first_name.label }}<br>
+                  {{ rform.first_name }}<br>
+                  {{ rform.last_name.label }}<br>
+                  {{ rform.last_name }}<br>
+                  {{ rform.email.label }}<br>
+                  {{ rform.email }}<br>
+                  {{ rform.password.label }}<br>
+                  {{ rform.password }}<br>
+                  {{ rform.confirm_password.label }}<br>
+                  {{ rform.confirm_password }}<br><br>
+                  {{ rform.add_user }}
+          </fieldset>
+        </form>
+    </div>
+  </body>
+</html>
