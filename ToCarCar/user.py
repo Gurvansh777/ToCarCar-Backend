@@ -29,7 +29,6 @@ def new_user_submit(rform):
 #API
 @user_bp.route('/api/adduser', methods = ['POST'])
 def new_user_api():
-    print(request.form.get('firstName', 'None'))
     first_name = request.form.get('firstName', 'Default')
     last_name = request.form.get('lastName', 'Default')
     email = request.form.get('email', 'Default')
