@@ -18,4 +18,8 @@ def add_user(first_name, last_name, email, password, user_type):
 def check_credentials(email, password):
     user = db.users.find_one({'email' : email, 'password' : password})
     return user
-    
+
+
+def get_user_by_email(email):
+    user = db.users.find_one({'email' : email})
+    return user

@@ -1,22 +1,38 @@
 <html>
   <head>
-    <title>Home</title>
+    <title>ToCarCar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style type="text/css">
+      body {
+       background-image: url("./static/images/home-background.jpg");
+       background-size: cover;
+      }
+      #login-container{
+        margin-left: 15%;
+      }
+      #heading{
+        text-align : center;
+      }
+    </style>
   </head>
   <body>
-    <div>
-        <h1>Home Page ToCarCar</h1>
+    <p id="heading" class ="text-light display-6">ToCarCar - <em>Life is too short to drive boring cars.</em></p>
+    <div id="login-container" class="d-flex align-items-center justify-content-left h-100">
+      <div class="d-flex flex-column">
+        <h3 class="text-light display-6">Please sign in</h3><br>
         <form method="POST">
             {{ lform.hidden_tag() }}
-            <fieldset>
-                <legend>Login</legend>
-                {{ lform.email.label }}<br>
-                {{ lform.email }}<br>
-                {{ lform.password.label }}<br>
-                {{ lform.password }}<br><br>
-                {{ lform.login }}
-                <a href="{{url_for('user_bp.new_user')}}">New User?</a>
-            </fieldset>
+          <div class="row mb-3">
+            {{ lform.email(class_="form-control", placeholder="name@example.com") }}
+          </div>
+          <div class="row mb-3">
+            {{ lform.password(class_="form-control", placeholder="******") }}
+          </div><br>
+            {{ lform.login(class_="btn btn-primary")}}
+            <a class ="btn btn-primary" href="{{url_for('user_bp.new_user')}}">New User?</a><br>
+            <p class="text-danger">{{get_flashed_messages()[0]}}</p>
         </form>
+      </div>
     </div>
   </body>
 </html>

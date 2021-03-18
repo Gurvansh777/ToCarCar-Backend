@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, request
+from flask import Blueprint, flash, Flask, render_template, request, redirect
 from db.user_db import *
 from forms.FormClasses import *
 user_bp = Blueprint('user_bp', __name__)
@@ -19,8 +19,12 @@ def new_user_submit(rform):
     confirm_password = rform.confirm_password.data
     user_type = "USER"
     
-    add_user(first_name, last_name, email, password, user_type)
-    return "<p>User Added! Please login to continue</p><a href='/'>Login</a>"
+    if get_user_by_email(email) is None:
+        add_user(first_name, last_name, email, password, user_type)
+        flash("User added! Please login to continue")
+    else:
+        flash("This email is already registered!")
+        return redirect("/adduser")
 
 #API
 @user_bp.route('/api/adduser', methods = ['POST'])

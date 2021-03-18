@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, flash, render_template, request, url_for, redirect
 from db.user_db import *
 from forms.FormClasses import *
 from user import user_bp
@@ -30,6 +30,7 @@ def check_user_submit(lform):
         else:
             return render_template('user_home.html', user = user)
     else:
+        flash('Invalid user!')
         return redirect("/")
         
 #API

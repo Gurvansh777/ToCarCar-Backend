@@ -1,27 +1,46 @@
 <html>
   <head>
     <title>User Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style type="text/css">
+      body {
+       background-image: url("./static/images/home-background.jpg");
+       background-size: cover;
+      }
+      #login-container{
+        margin-left: 15%;
+      }
+      #heading{
+        text-align : center;
+      }
+    </style>
   </head>
   <body>
-    <div>
-        <h1>Registration</h1>
+      <div id="login-container" class="d-flex align-items-center justify-content-left h-100">
+        <div class="d-flex flex-column">
+        <h3 class="text-light display-6">Registration</h3><br>
         <form method="POST">
           {{ rform.hidden_tag() }}
-          <fieldset>
-            <legend>Login</legend>
-                  {{ rform.first_name.label }}<br>
-                  {{ rform.first_name }}<br>
-                  {{ rform.last_name.label }}<br>
-                  {{ rform.last_name }}<br>
-                  {{ rform.email.label }}<br>
-                  {{ rform.email }}<br>
-                  {{ rform.password.label }}<br>
-                  {{ rform.password }}<br>
-                  {{ rform.confirm_password.label }}<br>
-                  {{ rform.confirm_password }}<br><br>
-                  {{ rform.add_user }}
-          </fieldset>
+          <div class="row mb-3">
+            {{ rform.first_name(placeholder = "First Name") }}
+          </div>
+          <div class="row mb-3">
+            {{ rform.last_name(placeholder = "Last Name") }}
+          </div>
+          <div class="row mb-3">
+            {{ rform.email(placeholder = "Email") }}
+          </div>
+          <div class="row mb-3">
+            {{ rform.password(placeholder = "Password") }}
+          </div>
+          <div class="row mb-3">
+            {{ rform.confirm_password(placeholder = "Confirm Password") }}
+          </div>
+          {{ rform.add_user(class_="btn btn-primary") }}
+          <a class ="btn btn-primary" href="{{url_for('init')}}">Login</a><br>
+          <p class="text-danger">{{get_flashed_messages()[0]}}</p>
         </form>
-    </div>
+        </div>
+      </div>
   </body>
 </html>
