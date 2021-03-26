@@ -14,3 +14,8 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('ConfirmPassword', validators=[DataRequired()])
     add_user = SubmitField('Add User')
+    
+    
+class ApproveUserForm(FlaskForm):
+    approve_user = SubmitField('Approve User')
+    unapprove_user = SubmitField('Unapprove User')

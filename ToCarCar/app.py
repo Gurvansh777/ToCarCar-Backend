@@ -1,11 +1,37 @@
-from flask import Flask, flash, render_template, request, url_for, redirect
+from flask import Flask, flash, render_template, request, url_for, redirect, session
 from db.user_db import *
 from forms.FormClasses import *
 from user import user_bp
 
+from admin import admin_bp
+
+from apiHelper import apiHelper_bp
+
+from constants import *
+
+from bson.json_util import dumps
+
+
 app = Flask(__name__)
 app.config.update(dict(SECRET_KEY='yoursecretkey'))
 app.register_blueprint(user_bp)
+app.register_blueprint(admin_bp)
+app.register_blueprint(apiHelper_bp)
+
+
+
+client = MongoClient(MONGO_CLIENT_URL)
+db = client[databaseName] #database
+
+
+if db[userTableName].find({'email': 'admin@example.com'}).count() <= 0:
+    userAdmin = {'firstName' : "Admin", 'lastName' : "Harman", 'email' : adminEmail, 'password' : "Admin", 'userType' : 'ADMIN', 'isApproved': 1}
+    
+    #userAdminObj = UserClass('Admin', 'Harman', 'admin@example.com', 'Admin', 'ADMIN', 1)
+    #userAdmin = dumps(userAdminObj, cls=EnhancedJSONEncoder)
+
+    db[userTableName].insert_one(userAdmin)
+
 
 #expose /
 @app.route('/', methods = ['GET'])
@@ -26,7 +52,9 @@ def check_user_submit(lform):
     user = check_credentials(email, password)
     if user is not None:
         if user['userType'] == 'ADMIN':
-            return render_template('admin_home.html', user = user)
+            session['loggedInEmail'] = user['email']
+            return redirect(url_for('admin_bp.admin_allUsers'))
+            
         else:
             return render_template('user_home.html', user = user)
     else:
