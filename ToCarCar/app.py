@@ -71,7 +71,7 @@ def check_user_api():
     if(user is None):
         return jsonify(uservalid = 0, message = 'user is invalid!')
     else:
-        return jsonify(uservalid = 1, message = 'user is valid!', firstName = user['firstName'], lastName = user['lastName'])
+        return jsonify(uservalid = 1, message = 'user is valid!', firstName = user['firstName'], lastName = user['lastName'], isApproved = user['isApproved'])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)
