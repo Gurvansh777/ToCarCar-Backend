@@ -51,12 +51,8 @@ def check_user_submit(lform):
     password = lform.password.data
     user = check_credentials(email, password)
     if user is not None:
-        if user['userType'] == 'ADMIN':
-            session['loggedInEmail'] = user['email']
-            return redirect(url_for('admin_bp.admin_allUsers'))
-            
-        else:
-            return render_template('user_home.html', user = user)
+        session['loggedInEmail'] = user['email']
+        return redirect(url_for('admin_bp.admin_allUsers'))
     else:
         flash('Invalid user!')
         return redirect("/")
@@ -72,6 +68,7 @@ def check_user_api():
         return jsonify(uservalid = 0, message = 'user is invalid!')
     else:
         return jsonify(uservalid = 1, message = 'user is valid!', firstName = user['firstName'], lastName = user['lastName'], isApproved = user['isApproved'])
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)

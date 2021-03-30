@@ -36,7 +36,7 @@ def update_user_approval_status(email, approvalStatus):
     
     
 def update_posting_approval_status(licensePlate, dateFrom, dateTo, approvalStatus):
-    query = {'licensePlate': licensePlate, 'dateFrom': dateFrom, 'dateTo': dateTo}
+    query = {'car.licensePlate': licensePlate, 'dateFrom': dateFrom, 'dateTo': dateTo}
     newValue = { '$set': {
                         'isApproved': approvalStatus
                     } 

@@ -66,3 +66,22 @@ def admin_unapprovePosting():
     if(licensePlate is not None):
          update_posting_approval_status(licensePlate, dateFrom, dateTo, 0)
     return redirect(url_for('admin_bp.admin_allPostings'))
+    
+###########################BOOKINGS##############################################
+@admin_bp.route('/adminallbookings', methods = ['GET', 'POST'])
+def admin_allBookings():
+    if session["loggedInEmail"] == adminEmail:
+        #allPostings = db[postingTableName].find({})
+        return render_template('admin_bookings.html')
+    else:    
+        return render_template('index.html')
+        
+        
+        
+
+
+##########################LOGOUT################################################
+@admin_bp.route('/logout', methods = ['GET', 'POST'])
+def admin_logout():
+    session.clear()
+    return redirect(url_for('init'))

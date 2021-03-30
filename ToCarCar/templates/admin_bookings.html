@@ -75,44 +75,32 @@
   
   <body>
     <div class="topnav">
-      <a class="active" href="{{url_for('admin_bp.admin_allUsers')}}">All Customers</a>
+      <a href="{{url_for('admin_bp.admin_allUsers')}}">All Customers</a>
       <a href="{{url_for('admin_bp.admin_allPostings')}}">New Postings</a>
-      <a href="{{url_for('admin_bp.admin_allBookings')}}">Bookings</a>
+      <a class="active" href="{{url_for('admin_bp.admin_allBookings')}}">Bookings</a>
       <a style="float:right" href="{{url_for('admin_bp.admin_logout')}}">Logout</a>
       <a style="float:right" href="#about">About</a>
     </div>
   
     <div style="padding-left:16px">
-      <h2>All Customers</h2>
+      <h2>Bookings</h2>
       <table class="styled-table">
         <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>User Approval</th>
+          <th>License Plate</th>
+          <th>Owner's Email</th>
+          <th>Date From</th>
+          <th>Date To</th>
+          <th>Rent Per Day</th>
+          <th>Posting Approval</th>
           <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-          {%for customer in allCustomers%} 
-            <tr>
-              <td>{{customer['firstName']}} {{customer['lastName']}}</td>
-              <td>{{customer['email']}}</td>
-                {% if customer.isApproved == 1 %}
-                  <td style="font-size:1em;color:yellowgreen">Approved </td>
-                  <td>
-                    <a class ="btn btn-primary" href="/adminunapproveuser?email={{customer['email']}}">Unapprove User</a>
-                  </td>
-                {% else %}
-                  <td style="font-size:1em;color:red">Not Approved </td>
-                  <td>
-                    <a class ="btn btn-primary" href="/adminapproveuser?email={{customer['email']}}">Approve User</a>
-                  </td>
-                {% endif %}
-            </tr>
-        	{% endfor %} 
-        </tbody>
+        <!---table--->
+        </tbody>     
       </table>
     </div>
+  
   </body>
 </html>
