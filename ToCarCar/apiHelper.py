@@ -93,10 +93,19 @@ def delete():
 #   }
 @apiHelper_bp.route('/api/updaterecord', methods = ['GET', 'POST'])
 def updateRecord():
-    myQuery = request.json["myQuery"]
-    newValues = request.json["newValues"]
+    requestBody = request.json
+    print("requestBody" + requestBody)
+    requestBody = json.loads(requestBody)
+    myQuery = requestBody["myQuery"]
+    print("\n")
+    print(myQuery)
+    newValues = requestBody["newValues"]
+    print("\n")
+    print(newValues)
     objectName = request.headers["objectName"]
+    
     db[objectName].update_one(myQuery, newValues)
+    
     return getAllRecords()    
     
     
