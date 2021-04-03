@@ -13,12 +13,12 @@ db = client[databaseName] #database
 #########################ALL USERS#################################
 @admin_bp.route('/adminallusers', methods = ['GET', 'POST'])
 def admin_allUsers():
-    if session["loggedInEmail"] == adminEmail:
+    if (('loggedInEmail' in session) and  (session["loggedInEmail"] == adminEmail) ):
         allCustomers = db[userTableName].find({'userType': "USER"})
         auform = ApproveUserForm(prefix='approveuserform')
         return render_template('admin_home.html', allCustomers = allCustomers, auform = auform)
     else:    
-        return render_template('index.html')
+        return redirect('/')
         
  
 @admin_bp.route('/adminapproveuser', methods = ['GET', 'POST'])
@@ -40,11 +40,11 @@ def admin_unapproveUser():
 #########################NEW POSTINGS########################################
 @admin_bp.route('/adminallpostings', methods = ['GET', 'POST'])
 def admin_allPostings():
-    if session["loggedInEmail"] == adminEmail:
+    if (('loggedInEmail' in session) and  (session["loggedInEmail"] == adminEmail) ):
         allPostings = db[postingTableName].find({})
         return render_template('admin_new_postings.html', allPostings = allPostings)
     else:    
-        return render_template('index.html')
+        return redirect('/')
 
 @admin_bp.route('/adminapproveposting', methods = ['GET', 'POST'])
 def admin_approvePosting():
