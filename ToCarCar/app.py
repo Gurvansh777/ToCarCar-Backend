@@ -24,18 +24,13 @@ client = MongoClient(MONGO_CLIENT_URL)
 db = client[databaseName] #database
 
 
-if db[userTableName].find({'email': 'admin@example.com'}).count() <= 0:
-    userAdmin = {'firstName' : "Admin", 'lastName' : "Harman", 'email' : adminEmail, 'password' : "Admin", 'userType' : 'ADMIN', 'isApproved': 1}
-    
-    #userAdminObj = UserClass('Admin', 'Harman', 'admin@example.com', 'Admin', 'ADMIN', 1)
-    #userAdmin = dumps(userAdminObj, cls=EnhancedJSONEncoder)
-
-    db[userTableName].insert_one(userAdmin)
-
 
 #expose /
 @app.route('/', methods = ['GET'])
 def init():
+    if db[userTableName].find({'email': 'admin@example.com'}).count() <= 0:
+        db[userTableName].insert_one({'firstName' : "Admin", 'lastName' : "Harman", 'email' : adminEmail, 'password' : "Admin", 'userType' : 'ADMIN', 'isApproved': 1})
+        
     return redirect(url_for('check_user'))
 
 #WEB
