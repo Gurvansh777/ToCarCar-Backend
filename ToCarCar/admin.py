@@ -1,3 +1,6 @@
+"""
+File to handle admin actions
+"""
 from flask import Blueprint, flash, Flask, render_template, request, url_for, redirect, session
 from db.user_db import *
 from forms.FormClasses import *
@@ -15,8 +18,7 @@ db = client[databaseName] #database
 def admin_allUsers():
     if (('loggedInEmail' in session) and  (session["loggedInEmail"] == adminEmail) ):
         allCustomers = db[userTableName].find({'userType': "USER"})
-        auform = ApproveUserForm(prefix='approveuserform')
-        return render_template('admin_home.html', allCustomers = allCustomers, auform = auform)
+        return render_template('admin_home.html', allCustomers = allCustomers)
     else:    
         return redirect('/')
         

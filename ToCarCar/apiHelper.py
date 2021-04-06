@@ -1,3 +1,6 @@
+"""
+API Helper class to talk to android application
+"""
 from flask import Blueprint, Flask, render_template, redirect, request
 from pymongo import MongoClient
 from constants import *
@@ -13,6 +16,7 @@ client = MongoClient(MONGO_CLIENT_URL)
 db = client.tocarcar #database
 
 
+#To get all the records in android
 @apiHelper_bp.route('/api/getallrecords', methods = ['GET', 'POST'])
 def getAllRecords():
     objectName = request.headers["objectName"]
@@ -22,7 +26,7 @@ def getAllRecords():
     return json_data
     
     
-
+#To get specific records based on condition in android
 @apiHelper_bp.route('/api/getspecificrecords', methods = ['GET', 'POST'])
 def getSpecificRecords():
     objectName = request.headers["objectName"]
@@ -38,7 +42,7 @@ def getSpecificRecords():
     return json_data
     
     
-
+#To add a new record
 @apiHelper_bp.route('/api/addrecord', methods = ['POST'])
 def addRecord():
     recordToInsert = request.json
@@ -48,7 +52,7 @@ def addRecord():
     return getAllRecords()
     
     
-
+#To delete an object
 @apiHelper_bp.route('/api/delete', methods = ['GET', 'POST'])
 def delete():
     recordsToDelete = request.json
@@ -59,7 +63,7 @@ def delete():
     return "{}"
 
 
-
+#To update a record
 @apiHelper_bp.route('/api/updaterecord', methods = ['GET', 'POST'])
 def updateRecord():
     requestBody = request.json

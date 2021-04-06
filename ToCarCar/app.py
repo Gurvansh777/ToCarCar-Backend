@@ -1,14 +1,13 @@
+"""
+Main file of the project to handle user authentication
+"""
 from flask import Flask, flash, render_template, request, url_for, redirect, session
 from db.user_db import *
 from forms.FormClasses import *
 from user import user_bp
-
 from admin import admin_bp
-
 from apiHelper import apiHelper_bp
-
 from constants import *
-
 from bson.json_util import dumps
 
 
@@ -25,7 +24,7 @@ db = client[databaseName] #database
 
 
 
-#expose /
+#expose / - root
 @app.route('/', methods = ['GET'])
 def init():
     if db[userTableName].find({'email': 'admin@example.com'}).count() <= 0:
@@ -33,7 +32,7 @@ def init():
         
     return redirect(url_for('check_user'))
 
-#WEB
+#WEB function to verify user
 @app.route('/checkuser', methods = ['GET', 'POST'])
 def check_user():
     lform = LoginForm(prefix='loginform')
@@ -52,7 +51,7 @@ def check_user_submit(lform):
         flash('Invalid user!')
         return redirect("/")
         
-#API
+#API - verify user in the android application
 @app.route('/api/checkuser', methods = ['POST'])
 def check_user_api():
     email = request.form.get('email', 'Default')

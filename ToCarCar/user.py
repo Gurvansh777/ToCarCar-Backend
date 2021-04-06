@@ -1,9 +1,12 @@
+"""
+API to add a new user
+"""
 from flask import Blueprint, flash, Flask, render_template, request, redirect
 from db.user_db import *
 from forms.FormClasses import *
 user_bp = Blueprint('user_bp', __name__)
 
-#API
+#API - add user from the android application
 @user_bp.route('/api/adduser', methods = ['POST'])
 def new_user_api():
     first_name = request.form.get('firstName', 'Default')
@@ -13,4 +16,3 @@ def new_user_api():
     user_type = 'USER'
         
     return add_user(first_name, last_name, email, password, user_type)
-    
